@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Peserta Belajar</title>
+    <style>
+        body { font-family: sans-serif; background-color: #87CEEB; padding: 20px; text-align: center; }
+        
+        /* Judul & Alamat */
+        .header { color: white; margin-bottom: 30px; }
+        .header h1 { margin-top: 5px; margin-bottom: 5px; }
+        .header h2 { margin-bottom: 5px; }
+        .header p { margin-top: 0; }
+
+        /* Pencarian */
+        .search-container { margin-bottom: 30px; }
+        #search { padding: 10px; width: 250px; border-radius: 20px; border: none; }
+        .btn-search { padding: 10px 20px; border-radius: 20px; border: none; background: #FFD700; cursor: pointer; }
+
+        /* Grid */
+        .container { 
+            display: grid; grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; max-width: 600px; margin: 0 auto; 
+        }
+        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .foto-siswa { width: 100%; height: 180px; background: #eee; display: block; margin-bottom: 10px; object-fit: cover; border-radius: 10px; }
+        
+        /* Teks Data */
+        .nama-siswa { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #333; }
+        .data-text { margin: 3px 0; font-size: 14px; text-align: left; }
+        .label { font-weight: bold; }
+
+        /* Navigasi */
+        .nav-btn { margin-top: 30px; margin-bottom: 30px; }
+        button { padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; background: white; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Daftar Peserta Belajar</h2>
+        <h1>Kursus Sutomo</h1>
+        <p>Jalan Pendidikan, 12, Pangkalan Brandan</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Cari nama siswa...">
+        <button class="btn-search" onclick="cariSiswa()">Cari</button>
+    </div>
+
+    <div id="data-container" class="container"></div>
+
+    <div class="nav-btn">
+        <button onclick="changePage(-1)">Sebelumnya</button>
+        <span id="page-num" style="margin: 0 15px; font-weight: bold; color: white;">1</span>
+        <button onclick="changePage(1)">Selanjutnya</button>
+    </div>
+
+    <script>
+        const semuaSiswa = [
+            { nama: "Syasya Ayudia", foto: "foto_siswa/syasya.jpg", srn: "0232509001", level: "ADVANCED", pob: "Pangkalan Brandan", dob: "25 September 2007" },
+            { nama: "Siti Zulayka Maulida Amali", foto: "foto_siswa/moli.jpg", srn: "0230704002", level: "ADVANCED", pob: "Pangkalan Brandan", dob: "7 April 2007" },
+            { nama: "Cherryl Azzahra Purnomo", foto: "foto_siswa/serial.png", srn: "0231711003", level: "INTERMEDIATE ONE", pob: "Pangkalan Brandan", dob: "17 November 2007" },
+            { nama: "Azzahra Novrida Arianti", foto: "foto_siswa/zara.jpg", srn: "0230111004", level: "ELEMENTARY TWO", pob: "Pangkalan Brandan", dob: "1 November 2007" }, 
+            { nama: "Rendi Prilandi", foto: "foto_siswa/rendi.jpg", srn: "0232108005", level: "ADVANCED", pob: "Pangkalan Brandan", dob: "21 August 2006" },
+            { nama: "Riska Ananda Syahputri", foto: "foto_siswa/riska.jpg", srn: "0231305006", level: "INTERMEDIATE ONE", pob: "Pangkalan Brandan", dob: "13 May 2006" },
+            { nama: "Aliya Salsabilla", foto: "foto_siswa/aliya.jpg", srn: "0230102009", level: "INTERMEDIATE TWO", pob: "Pangkalan Brandan", dob: "1 February 2006" },
+            { nama: "Reysa Nadine Nst", foto: "foto_siswa/resa.jpg", srn: "0230412010", level: "INTERMEDIATE TWO", pob: "Pangkalan Brandan", dob: "4 December 2006" },
+            { nama: "Hafianda Pratama", foto: "foto_siswa/tama.jpg", srn: "0231508011", level: "ELEMENTARY ONE", pob: "Pangkalan Brandan", dob: "15 August 2006" },
+            { nama: "Luthfia Azzahra Nur", foto: "foto_siswa/lulu.jpg", srn: "0231010012", level: "INTERMEDIATE TWO", pob: "Pangkalan Brandan", dob: "10 November 2008" },
+            { nama: "M. Adam Alhafish", foto: "foto_siswa/adam.jpg", srn: "0232502013", level: "INTERMEDIATE ONE", pob: "Pangkalan Brandan", dob: "25 February 2007" },
+            { nama: "Farhan Farela Mahardika", foto: "foto_siswa/Farhan.png", srn: "0232603014", level: "INTERMEDIATE ONE", pob: "Pangkalan Brandan", dob: "26 Market 2007" },
+            { nama: "Lily Elvina Wardhani", foto: "foto_siswa/vina.jpg", srn: "0232004015", level: "INTERMEDIATE ONE", pob: "Wonorejo", dob: "30 November 2006" },
+            { nama: "Qiarra Hafizah Azmi", foto: "foto_siswa/qiara.jpg", srn: "0232212016", level: "INTERMEDIATE TWO", pob: "Pangkalan Brandan", dob: "22 December 2008" },
+            { nama: "Armitha Shireen", foto: "foto_siswa/siren.jpg", srn: "0233008017", level: "INTERMEDIATE TWO", pob: "Pangkalan Brandan", dob: "30 August 2007" },
+            { nama: "Hamda Rofiqa", foto: "foto_siswa/hamda.jpg", srn: "0232406018", level: "INTERMEDIATE TWO", pob: "Bukit Satu", dob: "24 June 2004" },
+            { nama: "Kaila Afiza", foto: "foto_siswa/kaila.jpg", srn: "0230728019", level: "PRIMARY", pob: "Langkat", dob: "28 July 2011" },
+             { nama: "Aaqila Farzana Simatupang", foto: "foto_siswa/aqila.png", srn: "0231104020", level: "INTERMEDIATE TWO", pob: "Medan", dob: "4 November 2011" },
+            { nama: "Aqilla Haniza Fadhilah", foto: "foto_siswa/haniza.jpg", srn: "0231025021", level: "PRIMARY", pob: "Langkat", dob: "25 October 20010" }, 
+           { nama: "Shovia Qolbi", foto: "foto_siswa/sopia.jpg", srn: "0231205022", level: "ELEMENTARY ONE", pob: "Pangkalan Brandan", dob: "5 December 2008" },
+           { nama: "Sandra Almira", foto: "foto_siswa/sandra.png", srn: "0230429023", level: "ELEMENTARY TWO", pob: "Langkat", dob: "29;April 2011" }, 
+           { nama: "Azzelia Alita", foto: "foto_siswa/alita.png", srn: "0230126024", level: "PRIMARY", pob: "Langkat", dob: "26 January 2012" },
+           { nama: "Nadiah Salsabila", foto: "foto_siswa/nadiah.jpg", srn: "0231022025", level: "ELEMENTARY ONE", pob: "Bukit Satu", dob: "22 October 2009" }, 
+           { nama: "Fariscal Amri", foto: "foto_siswa/ical.jpg", srn: "0230706026", level: "ELEMENTARY ONE", pob: "Pangkalan Brandan", dob: "6 July 2009" },
+           { nama: "Romeo Ray Nst", foto: "foto_siswa/ray.jpg", srn: "0230401027", level: "ELEMENTARY ONE", pob: "Langkat", dob: "1 April 2010" }, 
+           { nama: "Necha Surbakti", foto: "foto_siswa/neca.jpg", srn: "0230330028", level: "ELEMENTARY ONE", pob: "Langkat", dob: "30 March 2011" },
+           { nama: "Peronika Dewi Sri Sinaga", foto: "foto_siswa/pero.jpg", srn: "0230822029", level: "ELEMENTARY ONE", pob: "Sendayan", dob: "22 August 2011" },
+           { nama: "Laurensius Gabriel Sinaga", foto: "foto_siswa/gab.jpg", srn: "0230410030", level: "ELEMENTARY ONE", pob: "Sendayan", dob: "10 April 2013" }, 
+           { nama: "Nurul Aqila", foto: "foto_siswa/nurul.jpg", srn: "0230614031", level: "INTERMEDIATE ONE", pob: "Pangkalan Brandan", dob: "14 June 2010" }, 
+           { nama: "Alquinsha Rizky Fitria", foto: "foto_siswa/qinsa.jpg", srn: "0230921032", level: "INTERMEDIATE ONE", pob: "Pangkalan Brandan", dob: "21 September 2009" },
+
+        ];
+
+        let halamanSekarang = 0;
+        const perHalaman = 2;
+
+        function renderData(data = semuaSiswa) {
+            const container = document.getElementById('data-container');
+            container.innerHTML = "";
+            document.getElementById('page-num').innerText = halamanSekarang + 1;
+
+            const start = halamanSekarang * perHalaman;
+            const end = start + perHalaman;
+            const dataTampil = data.slice(start, end);
+
+            dataTampil.forEach(s => {
+                container.innerHTML += `
+                    <div class="card">
+                        <img src="${s.foto}" class="foto-siswa" alt="${s.nama}">
+                        <div class="nama-siswa">${s.nama}</div>
+                        <div class="data-text"><span class="label">SRN:</span> ${s.srn}</div>
+                        <div class="data-text"><span class="label">Level:</span> ${s.level}</div>
+                        <div class="data-text"><span class="label">Place of Birth:</span> ${s.pob}</div>
+                        <div class="data-text"><span class="label">Date of Birth:</span> ${s.dob}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function cariSiswa() {
+            const keyword = document.getElementById('search').value.toLowerCase();
+            const hasil = semuaSiswa.filter(s => s.nama.toLowerCase().includes(keyword));
+            halamanSekarang = 0;
+            renderData(hasil);
+        }
+
+        function changePage(arah) {
+            const totalHalaman = Math.ceil(semuaSiswa.length / perHalaman);
+            halamanSekarang += arah;
+            if (halamanSekarang < 0) halamanSekarang = 0;
+            if (halamanSekarang >= totalHalaman) halamanSekarang = totalHalaman - 1;
+            renderData();
+        }
+
+        renderData();
+    </script>
+</body>
+</html>
