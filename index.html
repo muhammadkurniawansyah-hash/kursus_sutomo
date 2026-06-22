@@ -14,7 +14,23 @@
    background-color: lightgreen;
    font-style: italic;
    font-family: Times New Roman;
-}
+} 
+  .teks-berjalan {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .teks-berjalan p {
+    display: inline-block;
+    padding-left: 100%;
+    animation: gerak 40s linear infinite;
+  }
+
+  @keyframes gerak {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+  }
 </style>
   
     </head>
@@ -22,7 +38,7 @@
 background-repeat: no-repeat; background-size: cover; background-position: center; background-attachment: fixed;">
     
 <hr>
-  <div><marquee> &#x1F6B5 kursus_sutomo &#x1F3C1 </marquee></div>
+  <div class="teks-berjalan"><p>&#x1F6B5 kursus_sutomo &#x1F3C1 HALLO, MY STUDENTS! KITA LIBUR MULAI RABU TANGGAL 24 JUNI S/D 30 JUNI YAH. MASUK LAGI RABU TANGGAL 1 JULI. TERIMAKASIH🙏🙏🙏</p></div>
 <hr>
 
 
