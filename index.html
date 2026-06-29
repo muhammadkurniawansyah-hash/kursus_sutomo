@@ -20,7 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 80vh;
+            min-height: 100vh;
             margin: 0;
         }
 
@@ -45,21 +45,21 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     background: rgba(0, 0, 0, 0.5); /* Gelap transparan */
     display: none;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
     z-index: 9999;
 }
 
         /* Kotak utama popup */
 .popup-kotak {
     background: #ffffff;
-    width: 90%; /* Lebar 90% dari layar HP */
-    max-width: 500px; /* Batas maksimal lebar untuk layar besar */
-    max-height: 80vh; /* Tinggi maksimal 80% dari tinggi layar HP */
+    width: 50%; /* Lebar 90% dari layar HP */
+    max-width: 100px; /* Batas maksimal lebar untuk layar besar */
+    max-height: 100vh; /* Tinggi maksimal 80% dari tinggi layar HP */
     padding: 20px;
     border-radius: 10px;
     position: relative;
@@ -166,7 +166,15 @@ background-repeat: no-repeat; background-size: cover; background-position: cente
   <div class="teks-berjalan"><p>&#x1F6B5 kursus_sutomo &#x1F3C1 HALLO, MY STUDENTS! KITA LIBUR MULAI RABU TANGGAL 24 JUNI S/D 30 JUNI YAH. MASUK LAGI RABU TANGGAL 1 JULI. TERIMAKASIH🙏🙏🙏</p></div>
 <hr>
 
-    
+    <right><video  src="mengapa.mp4" 
+  controls 
+  width="200" 
+  height="300"
+  style="max-width: 100%; height: auto;"
+>
+  Browser kamu tidak mendukung pemutaran video.
+</video></right>
+
 <!-- Tombol untuk membuka pop-up -->
     <button class="buka-pop-up" id="tombolBuka"> Click here for Today's Listening</button>
 
