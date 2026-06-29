@@ -132,7 +132,47 @@
             width: 100%;
             outline: none;
         }
-  
+
+      /* Wadah utama untuk menyusun keduanya sejajar */
+        .wadah-berdampingan {
+            display: flex;
+            justify-content: center; /* Rata tengah di halaman */
+            align-items: flex-start; /* Sejajar bagian atasnya */
+            gap: 25px; /* Jarak antara kotak video dan kotak FlipHTML5 */
+            flex-wrap: wrap; /* Kalau layar sempit, otomatis turun ke bawah */
+            padding: 20px;
+            max-width: 1200px; /* Batas lebar maksimal */
+            margin: 0 auto; /* Posisi di tengah halaman */
+        }
+
+        /* Ukuran kotak video */
+        .kotak-video {
+            flex: 1 1 450px; /* Bisa melebar, minimal lebar 450px */
+            max-width: 550px;
+        }
+
+        /* Ukuran kotak FlipHTML5 */
+        .kotak-flip {
+            flex: 1 1 450px; /* Sama pengaturannya agar seimbang */
+            max-width: 550px;
+        }
+
+        /* Atur tampilan video */
+        video {
+            width: 100%;
+            height: 310px; /* Sesuaikan tinggi */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Atur tampilan FlipHTML5 */
+        iframe {
+            width: 100%;
+            height: 310px; /* Samakan tinggi dengan video agar rapi */
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
   div{
    color: black;
    background-color: lightblue;
@@ -239,19 +279,25 @@ background-repeat: no-repeat; background-size: cover; background-position: cente
     </script>
 <center><a href="https://ibb.co.com/XkpCtSbz"><img src="https://i.ibb.co.com/XkpCtSbz/1000000721-removebg-preview.png" alt="1000000721-removebg-preview" border="0" /></a></center>
 
-      <right><video  src="mengapa.mp4" 
-  controls 
-  width="200" 
-  height="300"
-  style="max-width: 100%; height: auto;"
->
-  Browser kamu tidak mendukung pemutaran video.
-</video></right>
-        
+      
         <center><h1>Selamat Datang di Kursus Sutomo</h1></center>
-<br>Baca komik, yuk!!!</br>
-      <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0;"><iframe style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;" src="https://online.fliphtml5.com/xxfno/01_Asterix_the_Gaul/" title="Asterix_the_Gaul" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" ></iframe></div>
+      <div class="wadah-berdampingan">
 
+        <!-- KOTAK VIDEO -->
+        <div class="kotak-video">
+            <h4 style="text-align:center; margin-bottom:10px;">Today's video</h4>
+            <video src="mengapa.mp4" controls>
+                Browser tidak mendukung pemutaran video.
+            </video>
+        </div>
+       <!-- KOTAK FLIPHTML5 -->
+        <div class="kotak-flip">
+            <h4 style="text-align:center; margin-bottom:10px;">Baca komik yuk!!!</h4>
+            <iframe src="https://online.fliphtml5.com/xxfno/01_Asterix_the_Gaul/" allowfullscreen></iframe>
+        </div>
+
+    </div>
+      
       <center><p><a 
 href="https://kelasinggris.home.blog/category/cerpen/"><button>cerpen</button></a></p></center><hr>
 
